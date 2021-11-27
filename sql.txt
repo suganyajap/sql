@@ -1,0 +1,146 @@
+
+
+
+.......................................users........................................................................
+
+CREATE TABLE users (user_id int primary key,user_name varchar(40),drives_attended int);
+
+
+insert into users values(1,"priya",2);
+insert into users values(2,"sathya",1);
+insert into users values(3,"ravi",5);
+insert into users values(4,"arun",3);
+insert into users values(5,"vani",4);
+
+
+..............................................codekata.........................................................................................
+
+
+create table codekata (user_id int, number_problem_solved int,string_problem_solved int,maths_problem_solved int, foreign key (user_id) references users(id) );
+
+
+insert into codekata values(1,10,22,15);
+insert into codekata values(2,7,12,25);
+insert into codekata values(3,19,22,17);
+insert into codekata values(4,21,16,18);
+insert into codekata values(5,13,30,21);
+
+
+.............................................................attendance.....................................................................................
+
+create table attendance(user_id int,total_working_days int,no_of_days_attended int);
+
+insert into attendance values(1,90,58);
+insert into attendance values(2,90,60);
+insert into attendance values(3,90,40);
+insert into attendance values(4,90,75);
+insert into attendance values(5,90,88);
+
+
+
+
+.........................................................topics...............................................................................................
+
+
+create table topics(topic_id varchar(30),topic_name varchar(40));
+
+insert into topics values("topic-1","HTML");
+insert into topics values("topic-2","CSS");
+insert into topics values("topic-3","REACT");
+insert into topics values("topic-4","NODE JS");
+insert into topics values("topic-5","AWS");
+
+.....................................................tasks.....................................................................................................
+
+create table tasks(task_name varchar(40),last_date_to_submit varchar(40));
+
+insert into tasks values("Html","oct-20");
+insert into tasks values("Css","nov-30");
+insert into tasks values("javascript","dec-05");
+insert into tasks values("mongodb","dec-10");
+insert into tasks values("nodejs","dec-20");
+
+
+
+
+
+....................................................company_drives............................................................................................
+
+create table company_drives(drives varchar(80),company_name varchar(80),user_id int,foreign key(user_id) references users(id));
+
+
+insert into company_drives values("MERN stack developer","ZOHO",1);
+insert into company_drives values("Data scientist","HP",2);
+insert into company_drives values("front-end developer","WIPRO",3);
+insert into company_drives values("sql developer","TCS",4);
+insert into company_drives values("Back-end developer","HCL",5);
+
+
+
+
+
+...........................................................mentors................................................................................................
+
+
+create table mentors(mentor_id int,mentor_name varchar(40),no_of_stud_assigned int);
+
+insert into mentors values(10,"varun",50);
+insert into mentors values(11,"kishore",75);
+insert into mentors values(12,"banu",30);
+insert into mentors values(13,"ragav",70);
+insert into mentors values(14,"kumar",10);
+
+.......................................................students_activated_courses....................................................................
+
+
+create table students_activated_courses(course_id varchar(40),stud_name varchar(40),activated_courses varchar(80));
+
+insert into students_activated_courses values("ME21","priya","machine learning");
+insert into students_activated_courses values("MSQL21","sathya","MySQL");
+insert into students_activated_courses values("AJ21","ravi","Angular js");
+insert into students_activated_courses values("CP21","arun","c programming");
+insert into students_activated_courses values("EH21","vani","ethical hacking");
+
+
+
+...........................................................courses...........................................................................................
+
+create table courses(id varchar(40) primary key,course_name varchar(40),duration varchar(40));
+
+insert into courses values("ME21","machine learning","1 month");
+insert into courses values("EH21","ethical hacking","2 month");
+insert into courses values("CP21","c programming","3 month");
+insert into courses values("AJ21","Angular js","1.5 month");
+insert into courses values("MSQL21","MySQL","1 month");
+
+
+.......................................3.get number problems solved in codekata by combining the users...........................................
+
+select number_problem_solved,user_id
+from codekata
+join users
+on users.id=codekata.user_id;
+
+.......................................4.display the no of company drives attended by a user...............................................................
+
+select drives_attended,id
+from users;
+
+.......................................5.combine and display students_activated_courses and courses for a specific user groping them based on the course..........
+
+select course_name
+from courses
+join students_activated_courses
+on courses.id=students_activated_courses.course_id
+group by course_name;
+
+
+.......................................6.list all the mentors................................................................................................
+
+select * from mentors;
+
+
+.......................................7.list the number of students that are assigned for a mentor.............................................................
+
+select mentor_name,no_of_stud_assigned
+from mentors;
